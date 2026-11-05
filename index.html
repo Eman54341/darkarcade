@@ -4,240 +4,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DarkArcade - Online Games</title>
+<title>DarkArcade</title>
 <style>
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #090b14;
+  background: #090910;
   color: white;
   font-family: Arial, sans-serif;
 }
 
 header {
+  padding: 28px 20px;
   text-align: center;
-  padding: 30px;
-  background: #14162b;
-  border-bottom: 2px solid #874aff;
+  background: #11111d;
+  border-bottom: 2px solid #842cff;
 }
 
 header h1 {
-  color: #a77aff;
-  font-size: 40px;
   margin: 0;
+  font-size: 38px;
+  letter-spacing: 5px;
+  color: #b56aff;
+  text-shadow: 0 0 15px #842cff;
+}
+
+header p { color: #aaa; }
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 25px 18px;
 }
 
 .search {
-  display: block;
-  width: 85%;
-  max-width: 550px;
-  margin: 25px auto;
+  width: 100%;
   padding: 15px;
-  background: #191d32;
-  color: white;
-  border: 1px solid #874aff;
+  border: 1px solid #6930a5;
   border-radius: 10px;
+  background: #171724;
+  color: white;
   font-size: 16px;
+  margin-bottom: 20px;
 }
 
-nav {
+.categories {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 10px;
+  margin-bottom: 25px;
 }
 
-button {
-  background: #191d32;
+.categories button {
+  padding: 10px 17px;
+  border: 1px solid #843cff;
+  border-radius: 20px;
+  background: #171224;
   color: white;
-  border: 1px solid #874aff;
-  border-radius: 8px;
-  padding: 12px 18px;
   cursor: pointer;
 }
 
-button:hover, button.active {
-  background: #713be8;
-}
-
-h2 {
-  margin: 25px;
-  color: #b99aff;
+.categories button:hover,
+.categories button.active {
+  background: #843cff;
 }
 
 .games {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  padding: 20px 30px 45px;
 }
 
 .game {
-  background: #15192b;
-  border: 1px solid #292d47;
-  border-radius: 13px;
-  overflow: hidden;
+  background: #151522;
+  border: 1px solid #29293c;
+  border-radius: 14px;
+  padding: 18px;
   transition: 0.2s;
 }
 
 .game:hover {
   transform: translateY(-5px);
-  border-color: #9b65ff;
+  border-color: #a34dff;
+  box-shadow: 0 0 18px #6120a555;
 }
 
-.thumbnail {
-  height: 140px;
+.game .picture {
+  height: 125px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 65px;
-  background: linear-gradient(135deg, #25204c, #111a36);
+  justify-content: center;
+  background: linear-gradient(135deg, #25113e, #111827);
+  border-radius: 10px;
+  font-size: 48px;
 }
 
-.info { padding: 15px; }
+.game h2 { margin-bottom: 8px; }
 
-.info p {
+.game p {
   color: #aaa;
-  font-size: 13px;
-  min-height: 32px;
+  min-height: 35px;
 }
 
 .play {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  background: #713be8;
-  color: white;
+  width: 100%;
   padding: 12px;
-  border-radius: 7px;
+  border: 0;
+  border-radius: 8px;
+  background: #8b35ee;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.play:hover { background: #925fff; }
+.play:hover { background: #a75aff; }
 
-.hidden { display: none; }
+#player {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black;
+}
+
+#player.hidden { display: none; }
+
+#gameFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: black;
+}
+
+#closePlayer {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 15px;
+  padding: 11px 17px;
+  background: #842cff;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
 footer {
-  background: #14162b;
-  color: #aaa;
-  padding: 25px;
+  padding: 30px;
   text-align: center;
+  color: #777;
 }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🎮 DARKARCADE</h1>
-  <p>Your world of online gaming</p>
+  <h1>DARKARCADE</h1>
+  <p>Your place to play</p>
 </header>
 
-<input class="search" id="search"
-placeholder="🔎 Search for games...">
+<main>
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="Search for games..."
+  >
 
-<nav>
-  <button class="active" onclick="filterGames('All',this)">All Games</button>
-  <button onclick="filterGames('Horror',this)">Horror</button>
-  <button onclick="filterGames('Racing',this)">Racing</button>
-  <button onclick="filterGames('Sports',this)">Sports</button>
-  <button onclick="filterGames('Action',this)">Action</button>
-  <button onclick="filterGames('Puzzle',this)">Puzzle</button>
-</nav>
-
-<h2>🔥 Popular Games</h2>
-
-<section class="games" id="games">
-
-<div class="game" data-category="Horror">
-  <div class="thumbnail">👵</div>
-  <div class="info">
-    <h3>Granny</h3>
-    <p>Escape the house in this horror adventure.</p>
-    <a class="play" href="https://www.google.com/search?q=Granny+official+game" target="_blank" rel="noopener">Find Game</a>
+  <div class="categories">
+    <button class="active" onclick="filterGames('all', this)">All Games</button>
+    <button onclick="filterGames('racing', this)">Racing</button>
+    <button onclick="filterGames('action', this)">Action</button>
+    <button onclick="filterGames('sports', this)">Sports</button>
+    <button onclick="filterGames('puzzle', this)">Puzzle</button>
   </div>
-</div>
 
-<div class="game" data-category="Racing">
-  <div class="thumbnail">🏎️</div>
-  <div class="info">
-    <h3>Drive Mad</h3>
-    <p>Drive through crazy obstacle courses.</p>
-    <a class="play" href="https://poki.com/en/g/drive-mad" target="_blank" rel="noopener">PLAY NOW</a>
+  <div class="games" id="games">
+
+    <div class="game" data-category="action" data-name="granny">
+      <div class="picture">🏚️</div>
+      <h2>Granny</h2>
+      <p>Escape from the house.</p>
+      <button class="play" onclick="openGame('https://www.google.com/search?q=Granny+browser+game')">PLAY NOW</button>
+    </div>
+
+    <div class="game" data-category="racing" data-name="drive mad">
+      <div class="picture">🚙</div>
+      <h2>Drive Mad</h2>
+      <p>Try to reach the finish line.</p>
+      <button class="play" onclick="openGame('https://poki.com/en/g/drive-mad')">PLAY NOW</button>
+    </div>
+
+    <div class="game" data-category="sports" data-name="super liquid soccer">
+      <div class="picture">⚽</div>
+      <h2>Super Liquid Soccer</h2>
+      <p>Play a fun soccer game.</p>
+      <button class="play" onclick="openGame('https://poki.com/en/g/super-liquid-soccer')">PLAY NOW</button>
+    </div>
+
+    <div class="game" data-category="racing" data-name="smash karts">
+      <div class="picture">🏎️</div>
+      <h2>Smash Karts</h2>
+      <p>Battle other karts.</p>
+      <button class="play" onclick="openGame('https://www.smashkarts.io/')">PLAY NOW</button>
+    </div>
+
+    <div class="game" data-category="action" data-name="subway surfers">
+      <div class="picture">🚆</div>
+      <h2>Subway Surfers</h2>
+      <p>Run and dodge obstacles.</p>
+      <button class="play" onclick="openGame('https://poki.com/en/g/subway-surfers')">PLAY NOW</button>
+    </div>
+
+    <div class="game" data-category="puzzle" data-name="impossible quiz">
+      <div class="picture">🧠</div>
+      <h2>The Impossible Quiz</h2>
+      <p>Test your brain.</p>
+      <button class="play" onclick="openGame('https://www.google.com/search?q=The+Impossible+Quiz+browser+game')">PLAY NOW</button>
+    </div>
+
   </div>
-</div>
-
-<div class="game" data-category="Sports">
-  <div class="thumbnail">⚽</div>
-  <div class="info">
-    <h3>Super Liquid Soccer</h3>
-    <p>Play exciting soccer matches.</p>
-    <a class="play" href="https://poki.com/en/g/super-liquid-soccer" target="_blank" rel="noopener">PLAY NOW</a>
-  </div>
-</div>
-
-<div class="game" data-category="Action">
-  <div class="thumbnail">🚗</div>
-  <div class="info">
-    <h3>Smash Karts</h3>
-    <p>Race around in multiplayer kart battles.</p>
-    <a class="play" href="https://poki.com/en/g/smash-karts" target="_blank" rel="noopener">PLAY NOW</a>
-  </div>
-</div>
-
-<div class="game" data-category="Action">
-  <div class="thumbnail">🏃</div>
-  <div class="info">
-    <h3>Subway Surfers</h3>
-    <p>Run, jump and dodge obstacles.</p>
-    <a class="play" href="https://poki.com/en/g/subway-surfers" target="_blank" rel="noopener">PLAY NOW</a>
-  </div>
-</div>
-
-<div class="game" data-category="Puzzle">
-  <div class="thumbnail">🧩</div>
-  <div class="info">
-    <h3>The Impossible Quiz</h3>
-    <p>Test your brain with tricky questions.</p>
-    <a class="play" href="https://poki.com/en/g/the-impossible-quiz" target="_blank" rel="noopener">PLAY NOW</a>
-  </div>
-</div>
-
-</section>
+</main>
 
 <footer>
-  <p>© 2026 DarkArcade | Made for gamers 🎮</p>
+  DARKARCADE — Game time.
 </footer>
 
+<div id="player" class="hidden">
+  <button id="closePlayer" onclick="closeGame()">✕ EXIT GAME</button>
+  <iframe
+    id="gameFrame"
+    title="Game player"
+    allow="fullscreen; autoplay; gamepad"
+    allowfullscreen>
+  </iframe>
+</div>
+
 <script>
-let currentCategory = "All";
+const player = document.getElementById("player");
+const gameFrame = document.getElementById("gameFrame");
+
+function openGame(url) {
+  gameFrame.src = url;
+  player.classList.remove("hidden");
+
+  if (player.requestFullscreen) {
+    player.requestFullscreen().catch(() => {});
+  }
+}
+
+function closeGame() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+
+  gameFrame.src = "";
+  player.classList.add("hidden");
+}
+
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement && !player.classList.contains("hidden")) {
+    gameFrame.src = "";
+    player.classList.add("hidden");
+  }
+});
 
 function filterGames(category, button) {
-  currentCategory = category;
-
-  document.querySelectorAll("nav button").forEach(b => {
+  document.querySelectorAll(".categories button").forEach(b => {
     b.classList.remove("active");
   });
 
   button.classList.add("active");
-  searchGames();
-}
-
-function searchGames() {
-  let search = document.getElementById("search").value.toLowerCase();
 
   document.querySelectorAll(".game").forEach(game => {
-    let name = game.querySelector("h3").textContent.toLowerCase();
-    let category = game.dataset.category;
-
-    let matchesName = name.includes(search);
-    let matchesCategory = currentCategory === "All" || category === currentCategory;
-
-    game.classList.toggle("hidden", !(matchesName && matchesCategory));
+    game.style.display =
+      category === "all" || game.dataset.category === category
+        ? ""
+        : "none";
   });
 }
 
-document.getElementById("search").addEventListener("input", searchGames);
+document.getElementById("search").addEventListener("input", function() {
+  const search = this.value.toLowerCase();
+
+  document.querySelectorAll(".game").forEach(game => {
+    game.style.display =
+      game.dataset.name.includes(search) ? "" : "none";
+  });
+});
 </script>
 
 </body>
