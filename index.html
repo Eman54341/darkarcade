@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DarkArcade</title>
+<title>DARKARCADE</title>
 <style>
 * { box-sizing: border-box; }
 
@@ -16,24 +16,24 @@ body {
 }
 
 header {
-  padding: 28px 20px;
   text-align: center;
+  padding: 30px 15px;
   background: #11111d;
-  border-bottom: 2px solid #842cff;
+  border-bottom: 2px solid #8b35ee;
 }
 
 header h1 {
   margin: 0;
-  font-size: 38px;
-  letter-spacing: 5px;
-  color: #b56aff;
-  text-shadow: 0 0 15px #842cff;
+  font-size: 42px;
+  letter-spacing: 6px;
+  color: #bd7aff;
+  text-shadow: 0 0 18px #8b35ee;
 }
 
 header p { color: #aaa; }
 
 main {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: auto;
   padding: 25px 18px;
 }
@@ -41,85 +41,104 @@ main {
 .search {
   width: 100%;
   padding: 15px;
-  border: 1px solid #6930a5;
-  border-radius: 10px;
   background: #171724;
   color: white;
+  border: 1px solid #7734bb;
+  border-radius: 10px;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
   margin-bottom: 25px;
 }
 
 .categories button {
-  padding: 10px 17px;
-  border: 1px solid #843cff;
-  border-radius: 20px;
   background: #171224;
+  border: 1px solid #843cff;
   color: white;
+  padding: 10px 17px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
-.categories button:hover,
-.categories button.active {
+.categories button.active,
+.categories button:hover {
   background: #843cff;
+}
+
+#gameCount {
+  color: #aaa;
+  margin-bottom: 15px;
 }
 
 .games {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
 }
 
 .game {
   background: #151522;
   border: 1px solid #29293c;
-  border-radius: 14px;
-  padding: 18px;
-  transition: 0.2s;
+  border-radius: 13px;
+  padding: 17px;
+  transition: .2s;
 }
 
 .game:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: #a34dff;
-  box-shadow: 0 0 18px #6120a555;
+  box-shadow: 0 0 17px #842cff44;
 }
 
-.game .picture {
-  height: 125px;
+.picture {
+  height: 115px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #25113e, #111827);
-  border-radius: 10px;
   font-size: 48px;
+  background: linear-gradient(135deg, #32144f, #101827);
+  border-radius: 9px;
 }
 
-.game h2 { margin-bottom: 8px; }
+.game h2 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
 
 .game p {
   color: #aaa;
-  min-height: 35px;
+  font-size: 13px;
+  min-height: 30px;
 }
 
 .play {
   width: 100%;
   padding: 12px;
+  background: #8735e9;
+  color: white;
   border: 0;
   border-radius: 8px;
-  background: #8b35ee;
-  color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .play:hover { background: #a75aff; }
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #888;
+}
+
+footer a { color: #b77aff; }
+
+/* FULL-SCREEN GAME PLAYER */
 
 #player {
   position: fixed;
@@ -139,111 +158,164 @@ main {
 
 #closePlayer {
   position: absolute;
-  z-index: 2;
+  z-index: 10000;
   top: 12px;
   right: 15px;
-  padding: 11px 17px;
-  background: #842cff;
-  color: white;
+  padding: 12px 17px;
   border: 0;
   border-radius: 8px;
-  font-size: 16px;
+  background: #8735e9;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-footer {
-  padding: 30px;
-  text-align: center;
-  color: #777;
-}
-
+#closePlayer:hover { background: #a75aff; }
 </style>
 </head>
+
 <body>
 
 <header>
   <h1>DARKARCADE</h1>
-  <p>Your place to play</p>
+  <p>30 GAMES. ONE ARCADE. INFINITE FUN.</p>
 </header>
 
 <main>
-  <input
-    class="search"
-    id="search"
-    type="text"
-    placeholder="Search for games..."
-  >
 
-  <div class="categories">
-    <button class="active" onclick="filterGames('all', this)">All Games</button>
-    <button onclick="filterGames('racing', this)">Racing</button>
-    <button onclick="filterGames('action', this)">Action</button>
-    <button onclick="filterGames('sports', this)">Sports</button>
-    <button onclick="filterGames('puzzle', this)">Puzzle</button>
-  </div>
+<input
+  class="search"
+  id="search"
+  type="text"
+  placeholder="Search for a game..."
+>
 
-  <div class="games" id="games">
+<div class="categories">
+  <button class="active" data-category="all">All Games</button>
+  <button data-category="arcade">Arcade</button>
+  <button data-category="puzzle">Puzzle</button>
+  <button data-category="classic">Classic</button>
+  <button data-category="brain">Brain Games</button>
+  <button data-category="word">Word Games</button>
+</div>
 
-    <div class="game" data-category="action" data-name="granny">
-      <div class="picture">🏚️</div>
-      <h2>Granny</h2>
-      <p>Escape from the house.</p>
-      <button class="play" onclick="openGame('https://www.google.com/search?q=Granny+browser+game')">PLAY NOW</button>
-    </div>
+<div id="gameCount"></div>
+<div class="games" id="games"></div>
 
-    <div class="game" data-category="racing" data-name="drive mad">
-      <div class="picture">🚙</div>
-      <h2>Drive Mad</h2>
-      <p>Try to reach the finish line.</p>
-      <button class="play" onclick="openGame('https://poki.com/en/g/drive-mad')">PLAY NOW</button>
-    </div>
-
-    <div class="game" data-category="sports" data-name="super liquid soccer">
-      <div class="picture">⚽</div>
-      <h2>Super Liquid Soccer</h2>
-      <p>Play a fun soccer game.</p>
-      <button class="play" onclick="openGame('https://poki.com/en/g/super-liquid-soccer')">PLAY NOW</button>
-    </div>
-
-    <div class="game" data-category="racing" data-name="smash karts">
-      <div class="picture">🏎️</div>
-      <h2>Smash Karts</h2>
-      <p>Battle other karts.</p>
-      <button class="play" onclick="openGame('https://www.smashkarts.io/')">PLAY NOW</button>
-    </div>
-
-    <div class="game" data-category="action" data-name="subway surfers">
-      <div class="picture">🚆</div>
-      <h2>Subway Surfers</h2>
-      <p>Run and dodge obstacles.</p>
-      <button class="play" onclick="openGame('https://poki.com/en/g/subway-surfers')">PLAY NOW</button>
-    </div>
-
-    <div class="game" data-category="puzzle" data-name="impossible quiz">
-      <div class="picture">🧠</div>
-      <h2>The Impossible Quiz</h2>
-      <p>Test your brain.</p>
-      <button class="play" onclick="openGame('https://www.google.com/search?q=The+Impossible+Quiz+browser+game')">PLAY NOW</button>
-    </div>
-
-  </div>
 </main>
 
 <footer>
-  DARKARCADE — Game time.
+  <p>DARKARCADE — GAME TIME</p>
+  <p>Games provided by
+    <a href="https://playbolt.app/embed/" target="_blank">PlayBolt</a>
+  </p>
 </footer>
 
 <div id="player" class="hidden">
   <button id="closePlayer" onclick="closeGame()">✕ EXIT GAME</button>
   <iframe
     id="gameFrame"
-    title="Game player"
-    allow="fullscreen; autoplay; gamepad"
+    title="DarkArcade Game Player"
+    allow="autoplay; fullscreen; gamepad"
     allowfullscreen>
   </iframe>
 </div>
 
 <script>
+const games = [
+  {name:"2048", slug:"2048", icon:"🔢", category:"brain", desc:"Combine numbers to reach 2048."},
+  {name:"Hextris", slug:"hextris", icon:"🔷", category:"arcade", desc:"Match colors in a hexagonal puzzle."},
+  {name:"Astray", slug:"astray", icon:"🔮", category:"arcade", desc:"Navigate a rolling marble maze."},
+  {name:"Tetris", slug:"tetris", icon:"🧱", category:"classic", desc:"Stack falling blocks."},
+  {name:"Breakout", slug:"breakout", icon:"🎾", category:"classic", desc:"Break bricks with a bouncing ball."},
+  {name:"Floppy Bird", slug:"floppy-bird", icon:"🐦", category:"arcade", desc:"Fly through gaps without hitting anything."},
+  {name:"T-Rex Runner", slug:"t-rex-runner", icon:"🦖", category:"arcade", desc:"Jump over obstacles."},
+  {name:"Tower Game", slug:"tower-game", icon:"🏗️", category:"arcade", desc:"Build the tallest tower you can."},
+  {name:"Minesweeper", slug:"minesweeper", icon:"💡", category:"brain", desc:"Use clues to clear the grid."},
+  {name:"Memory Match", slug:"memory-match", icon:"🃏", category:"brain", desc:"Find matching pairs of cards."},
+  {name:"Sliding Puzzle", slug:"sliding-puzzle", icon:"🧩", category:"puzzle", desc:"Put the numbered tiles in order."},
+  {name:"Snake", slug:"snake", icon:"🐍", category:"classic", desc:"Collect food and grow longer."},
+  {name:"Whack-a-Mole", slug:"whack-a-mole", icon:"🔨", category:"arcade", desc:"Test your reaction speed."},
+  {name:"Neon Pong", slug:"neon-pong", icon:"🏓", category:"classic", desc:"Play a neon version of Pong."},
+  {name:"Piano Tiles", slug:"piano-tiles", icon:"🎹", category:"arcade", desc:"Tap the correct piano tiles."},
+  {name:"Sky Hopper", slug:"sky-hopper", icon:"☁️", category:"arcade", desc:"Hop across floating platforms."},
+  {name:"Lights Out", slug:"lights-out", icon:"💡", category:"puzzle", desc:"Turn off all the lights."},
+  {name:"Sudoku", slug:"sudoku", icon:"🔢", category:"brain", desc:"Complete the number grid."},
+  {name:"Nonogram", slug:"nonogram", icon:"🎨", category:"puzzle", desc:"Reveal pictures using number clues."},
+  {name:"Sokoban", slug:"sokoban", icon:"📦", category:"puzzle", desc:"Push boxes into the right spots."},
+  {name:"Connect Four", slug:"connect-four", icon:"🔴", category:"classic", desc:"Connect four pieces in a row."},
+  {name:"Reversi", slug:"reversi", icon:"⚫", category:"classic", desc:"Flip pieces to control the board."},
+  {name:"Hangman", slug:"hangman", icon:"🔤", category:"word", desc:"Guess the hidden word."},
+  {name:"Simon Says", slug:"simon-says", icon:"🎨", category:"brain", desc:"Remember the color sequence."},
+  {name:"Typing Test", slug:"typing-test", icon:"⌨️", category:"brain", desc:"Test your typing speed."},
+  {name:"Word Search", slug:"word-search", icon:"🔎", category:"word", desc:"Find hidden words in the grid."},
+  {name:"Word Guess", slug:"word-guess", icon:"💬", category:"word", desc:"Guess the secret word."},
+  {name:"Anagrams", slug:"anagrams", icon:"🔠", category:"word", desc:"Rearrange letters to make words."},
+  {name:"Missing Letter", slug:"missing-letter", icon:"✏️", category:"word", desc:"Find the missing letter."},
+  {name:"Capital Cities Quiz", slug:"capitals-quiz", icon:"🌎", category:"brain", desc:"Test your geography knowledge."}
+];
+
+const gamesContainer = document.getElementById("games");
+const searchInput = document.getElementById("search");
+const gameCount = document.getElementById("gameCount");
+
+let activeCategory = "all";
+
+function renderGames() {
+  const search = searchInput.value.toLowerCase();
+
+  const filtered = games.filter(game => {
+    const matchesSearch = game.name.toLowerCase().includes(search);
+    const matchesCategory =
+      activeCategory === "all" || game.category === activeCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  gamesContainer.innerHTML = "";
+
+  gameCount.textContent = filtered.length + " games found";
+
+  filtered.forEach(game => {
+    const card = document.createElement("div");
+    card.className = "game";
+
+    const picture = document.createElement("div");
+    picture.className = "picture";
+    picture.textContent = game.icon;
+
+    const title = document.createElement("h2");
+    title.textContent = game.name;
+
+    const description = document.createElement("p");
+    description.textContent = game.desc;
+
+    const button = document.createElement("button");
+    button.className = "play";
+    button.textContent = "PLAY NOW";
+    button.addEventListener("click", () => {
+      openGame("https://playbolt.app/play/" + game.slug + "/");
+    });
+
+    card.append(picture, title, description, button);
+    gamesContainer.appendChild(card);
+  });
+}
+
+document.querySelectorAll(".categories button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".categories button").forEach(b => {
+      b.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    activeCategory = button.dataset.category;
+    renderGames();
+  });
+});
+
+searchInput.addEventListener("input", renderGames);
+
 const player = document.getElementById("player");
 const gameFrame = document.getElementById("gameFrame");
 
@@ -257,12 +329,12 @@ function openGame(url) {
 }
 
 function closeGame() {
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
-  }
-
   gameFrame.src = "";
   player.classList.add("hidden");
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  }
 }
 
 document.addEventListener("fullscreenchange", () => {
@@ -272,29 +344,7 @@ document.addEventListener("fullscreenchange", () => {
   }
 });
 
-function filterGames(category, button) {
-  document.querySelectorAll(".categories button").forEach(b => {
-    b.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  document.querySelectorAll(".game").forEach(game => {
-    game.style.display =
-      category === "all" || game.dataset.category === category
-        ? ""
-        : "none";
-  });
-}
-
-document.getElementById("search").addEventListener("input", function() {
-  const search = this.value.toLowerCase();
-
-  document.querySelectorAll(".game").forEach(game => {
-    game.style.display =
-      game.dataset.name.includes(search) ? "" : "none";
-  });
-});
+renderGames();
 </script>
 
 </body>
